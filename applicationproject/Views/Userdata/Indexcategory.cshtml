@@ -1,0 +1,40 @@
+﻿@model IEnumerable<applicationproject.Models.Categories>
+
+@{
+    ViewBag.Title = "Select Category";
+}
+
+<h2>Select Category</h2>
+
+<p>Language : @ViewBag.languagename</p>
+<p>Country : @ViewBag.countryname</p>
+<p>State : @ViewBag.statename</p>
+<p>District : @ViewBag.districtname</p>
+<p>Department : @ViewBag.departmentname</p>
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.config)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.config)
+        </td>
+        <td>
+            @Html.ActionLink("Select Subcategory", "Indexsubcategory", new { id = item.categoryId, countryname = ViewBag.countryName, statename = ViewBag.stateName, districtname = ViewBag.districtname, departmentname = ViewBag.departmentname, categoryname = item.name, languagename = ViewBag.languagename, languageid = ViewBag.languageId, countryid = ViewBag.countryId, stateid = ViewBag.stateid, districtid = ViewBag.districtid, departmentid = ViewBag.departmentid })
+        </td>
+    </tr>
+}
+
+</table>

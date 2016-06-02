@@ -1,0 +1,47 @@
+﻿@model applicationproject.Models.Departments
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Departments</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.config)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.config)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.updated)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.updated)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.districtId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.districtId)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

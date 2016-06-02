@@ -1,0 +1,283 @@
+﻿@model applicationproject.Models.Docviewmodel
+
+@{
+    ViewBag.Title = "Create";
+    if (ViewBag.pageContentData != "nothing") 
+    {
+
+        var result = "";
+        var beforeContent = "<html><head></head><body>";// Request["FirstName"];
+        var AfterContent = "</body></html>";// Request["LastName"];
+        //var email = "cccc";// Request["Email"];
+
+        var fileData = beforeContent + " " + ViewBag.pageContentData +
+            " " + AfterContent;// +Environment.NewLine;
+        var filename = "~/Content/htmlfiles/" + ViewBag.docId+".html";
+        var dataFile = Server.MapPath(filename);
+        File.WriteAllText(@dataFile, fileData);
+        result = "Information saved.";
+  
+
+
+        <h1>Document Saved !! @result</h1>
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+        return;
+    }
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" } ))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Docs</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.name)
+            @Html.ValidationMessageFor(model => model.name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.config)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.config)
+            @Html.ValidationMessageFor(model => model.config)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.comments)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.comments)
+            @Html.ValidationMessageFor(model => model.comments)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.file)
+        </div>
+        <div class="editor-field">
+            <input type="file" name="file" id="file" />
+            @Html.ValidationMessageFor(model => model.file)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.languageId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("languageId", "Select Language")
+            @Html.ValidationMessageFor(model => model.languageId)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.categoryId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("categoryId", "Select Category")
+            @Html.ValidationMessageFor(model => model.categoryId)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.subcategoryId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("subcategoryId")
+            @Html.ValidationMessageFor(model => model.subcategoryId)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.countryId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("countryId", "Select Country")
+            @Html.ValidationMessageFor(model => model.countryId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.stateId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("stateId")
+            @Html.ValidationMessageFor(model => model.stateId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.districtId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("districtId")
+            @Html.ValidationMessageFor(model => model.districtId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.departmentId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("departmentId")
+            @Html.ValidationMessageFor(model => model.departmentId)
+        </div>
+ 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.pageContent)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.pageContent)
+            @Html.ValidationMessageFor(model => model.pageContent)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+
+  
+    $(document).ready(function () {
+
+        //get subcategories 
+        $("#categoryId").change(function () {
+            $("#subcategoryId").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetSubcategories")', // we are calling json method
+
+                dataType: 'json',
+
+                data: { id: $("#categoryId").val() },
+                // here we are get value of selected country and passing same value
+
+
+                success: function (subcategories) {
+                    // states contains the JSON formatted list
+                    // of states passed from the controller
+                    $("#subcategoryId").append('<option value="0"> Select Sub Category </option>');
+                    $.each(subcategories, function (i, subcategory) {
+                        $("#subcategoryId").append('<option value="' + subcategory.Value + '">' +
+                             subcategory.Text + '</option>');
+                        // here we are adding option for States
+
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve districts.' + ex);
+                }
+            });
+            return false;
+
+        });
+        //get departments
+        $("#districtId").change(function () {
+            $("#departmentId").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetDepartments")', // we are calling json method
+
+                dataType: 'json',
+
+                data: { id: $("#districtId").val() },
+                // here we are get value of selected country and passing same value
+
+
+                success: function (departments) {
+                    // states contains the JSON formatted list
+                    // of states passed from the controller
+                    $("#departmentId").append('<option value="0"> Select Department </option>');
+                    $.each(departments, function (i, department) {
+                        $("#departmentId").append('<option value="' + department.Value + '">' +
+                             department.Text + '</option>');
+                        // here we are adding option for States
+
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve districts.' + ex);
+                }
+            });
+            return false;
+
+        });
+
+        //get districts
+        $("#stateId").change(function () {
+            $("#districtId").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetDistricts")', // we are calling json method
+ 
+                dataType: 'json',
+ 
+                data: { id: $("#stateId").val() },
+                // here we are get value of selected country and passing same value
+               
+ 
+                success: function (districts) {
+                    // states contains the JSON formatted list
+                    // of states passed from the controller
+ 
+                    $("#districtId").append('<option value="0"> Select District </option>');
+
+                    $.each(districts, function (i, district) {
+                        $("#districtId").append('<option value="' + district.Value + '">' +
+                             district.Text + '</option>');
+                        // here we are adding option for States
+ 
+                    });
+                },
+            error: function (ex) {
+                alert('Failed to retrieve districts.' + ex);
+            }
+        });
+        return false;
+    
+        });
+
+        //get states
+        $("#countryId").change(function () {
+            $("#stateId").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetStates")', // we are calling json method
+
+                dataType: 'json',
+
+                data: { id: $("#countryId").val() },
+                // here we are get value of selected country and passing same value
+
+
+                success: function (states) {
+                    // states contains the JSON formatted list
+                    // of states passed from the controller
+                    $("#stateId").append('<option value="0"> Select State </option>');
+                    $.each(states, function (i, state) {
+                        $("#stateId").append('<option value="' + state.Value + '">' +
+                             state.Text + '</option>');
+                        // here we are adding option for States
+
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+
+        });
+    });
+</script>
+
+}
+
+

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<applicationproject.Models.Docs>
+
+@{
+    ViewBag.Title = "Select Document";
+}
+
+<h2>Select Document</h2>
+
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.config)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comments)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.filepath)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.config)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comments)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.filepath)
+        </td>
+        <td>
+            @Html.ActionLink("Select", "Docselected", new { id=item.documentId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,36 @@
+﻿@model applicationproject.Models.States
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>States</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.config)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.config)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.updated)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.updated)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.stateId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

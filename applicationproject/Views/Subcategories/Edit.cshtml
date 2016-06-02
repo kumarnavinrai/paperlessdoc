@@ -1,0 +1,55 @@
+﻿@model applicationproject.Models.Subcategories
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Subcategories</legend>
+
+        @Html.HiddenFor(model => model.subcategoryId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.name)
+            @Html.ValidationMessageFor(model => model.name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.config)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.config)
+            @Html.ValidationMessageFor(model => model.config)
+        </div>
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.categoryId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("categoryId", "Select Category")
+            @Html.ValidationMessageFor(model => model.categoryId)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

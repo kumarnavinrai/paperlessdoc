@@ -1,0 +1,44 @@
+﻿@model IEnumerable<applicationproject.Models.States>
+
+@{
+    ViewBag.Title = "Select District";
+}
+
+<h2>Select State</h2>
+<p>Language : @ViewBag.languagename</p>
+<p>Country : @ViewBag.countryname</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.config)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.updated)
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.config)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.updated)
+        </td>
+       
+        <td>
+            @Html.ActionLink("Select District", "Indexdistricts", new { id = item.stateId, countryname = ViewBag.countryName, statename = item.name, languagename = ViewBag.languagename, languageid = ViewBag.languageId, countryid = ViewBag.countryId }) 
+            
+        </td>
+    </tr>
+}
+
+</table>

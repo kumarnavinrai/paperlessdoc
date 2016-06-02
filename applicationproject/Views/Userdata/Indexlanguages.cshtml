@@ -1,0 +1,34 @@
+﻿@model IEnumerable<applicationproject.Models.Languages>
+
+@{
+    ViewBag.Title = "Select Language";
+}
+
+<h2>Select Language</h2>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.config)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.config)
+        </td>
+        <td>
+            @Html.ActionLink("Select Country", "Indexcountry", new { id = item.languageId, languagename = item.name, languageid = item.languageId })
+        </td>
+        
+    </tr>
+}
+
+</table>

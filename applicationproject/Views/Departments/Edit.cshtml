@@ -1,0 +1,75 @@
+﻿@model applicationproject.Models.Departments
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Departments</legend>
+
+        @Html.HiddenFor(model => model.departmentId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.name)
+            @Html.ValidationMessageFor(model => model.name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.config)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.config)
+            @Html.ValidationMessageFor(model => model.config)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.updated)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.updated)
+            @Html.ValidationMessageFor(model => model.updated)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.districtId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("districtId", "Select District")
+            @Html.ValidationMessageFor(model => model.districtId)
+        </div>
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('input[type=datetime]').datepicker({
+                dateFormat: "dd/M/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-60:+0"
+            });
+
+        });
+    </script>
+
+}

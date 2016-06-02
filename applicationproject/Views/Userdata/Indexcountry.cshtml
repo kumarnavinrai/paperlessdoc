@@ -1,0 +1,42 @@
+﻿@model IEnumerable<applicationproject.Models.Country>
+
+@{
+    ViewBag.Title = "Select Country";
+}
+
+<h2>Select Country</h2>
+
+<p>Language : @ViewBag.languagename</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.config)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.updated)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td class="countryname">
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.config)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.updated)
+        </td>
+        <td>
+            @Html.ActionLink("Select State", "Indexstate", new { id = item.countryId, name = item.name, languagename = ViewBag.languagename, languageid = ViewBag.languageId, countryid = item.countryId }) 
+            
+        </td>
+    </tr>
+}
+
+</table>

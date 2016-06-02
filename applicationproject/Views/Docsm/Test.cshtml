@@ -1,0 +1,17 @@
+﻿@{
+    var result = "";
+
+    var firstName = "aaa";// Request["FirstName"];
+    var lastName = "bbb";// Request["LastName"];
+    var email = "cccc";// Request["Email"];
+
+        var userData = firstName + "," + lastName +
+            "," + email + Environment.NewLine;
+        var filename = "~/Content/images/htmlfiles/" + ViewBag.docId;
+        var dataFile = Server.MapPath(filename);
+        File.WriteAllText(@dataFile, userData);
+        result = "Information saved.";
+  
+}
+
+<h2>Test</h2>

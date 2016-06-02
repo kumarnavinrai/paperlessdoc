@@ -1,0 +1,125 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<applicationproject.Models.Docsandrel>
+@*
+
+    @model IEnumerable<applicationproject.Models.Docs>
+*@
+
+
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<div style="font-family:Arial">
+    <h2>Index</h2>
+    <p>
+        @using (Html.BeginForm())
+        {
+            <b>Search By:</b><text>Name</text>
+            @Html.TextBox("search") <input type="submit" value="Search" />
+
+        }
+    </p>
+    <h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Docs.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Docs.config)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Docs.comments)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Docs.filepath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Documentrels.languageId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Documentrels.categoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Documentrels.subcategoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Documentrels.countryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Documentrels.stateId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Documentrels.districtId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Documentrels.departmentId)
+            </th>
+            <th></th>
+        </tr>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="4">No rows match search criteria</td>
+            </tr>
+        }
+        @foreach (var item in Model)
+        {
+            string str = item.Docs.filepath;
+            string[] img = str.Split(new Char[] { '\\' });
+            string lastItem = img[img.Length - 1];
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Docs.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Docs.config)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Docs.comments)
+                </td>
+                <td>
+                    @* @Html.DisplayFor(modelItem => item.Docs.filepath) *@
+                    <img alt="" src="/Content/images/@lastItem" style="display: inline; margin-right: 5px;" width="100" height="100" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Languages.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Categories.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subcategories.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.States.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Districts.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Departments.name)
+                </td>
+                
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Docs.documentId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Docs.documentId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Docs.documentId })
+                </td>
+            </tr>
+        }
+
+    </table>
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, search = Request.QueryString["search"] }),
+    new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true, DisplayItemSliceAndTotal = true }
+)
+</div>

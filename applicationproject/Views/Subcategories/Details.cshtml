@@ -1,0 +1,36 @@
+﻿@model applicationproject.Models.Subcategories
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Subcategories</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.config)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.config)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.categoryId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.categoryId)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.subcategoryId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
