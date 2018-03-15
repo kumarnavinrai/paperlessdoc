@@ -1,1 +1,1 @@
-# paperlessdoc
+# Paperless proposal software
